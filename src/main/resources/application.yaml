@@ -10,3 +10,7 @@ spring:
       base-url: https://api.deepseek.com
       chat:
         model: deepseek-flash
+logging:
+  level:
+    org.springframework.ai.chat.client.advisor: debug
+    com.example.ai: debug
