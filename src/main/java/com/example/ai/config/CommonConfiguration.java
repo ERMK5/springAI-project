@@ -12,6 +12,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class CommonConfiguration {
 
+    /**
+     * 添加会话记忆Advisor
+     * @return
+     */
     @Bean
     public ChatMemory chatMemory(){
         return MessageWindowChatMemory
@@ -23,13 +27,14 @@ public class CommonConfiguration {
     @Bean
     public ChatClient chatClient(OpenAiChatModel model, ChatMemory chatMemory) {
         return ChatClient
-                .builder(model)
+                .builder(model) // 创建ChatClient工厂实例
                 .defaultSystem("你将扮演游戏《明日方舟》中的角色凯尔希，请以凯尔希的身份和语气回答问题。")
                 .defaultAdvisors(
                         new SimpleLoggerAdvisor(),
                         MessageChatMemoryAdvisor.builder(chatMemory)
                                 .build()
-                        )
-                .build();
+                        ) // 添加Advisor,记录日志
+                .build(); // 构建ChatClient实例
     }
+
 }

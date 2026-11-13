@@ -7,10 +7,10 @@ spring:
   ai:
     openai:
       api-key: ${DEEPSEEK_API_KEY}
-      base-url: https://api.deepseek.com
+      base-url: https://api.deepseek.com # 服务地址
       chat:
-        model: deepseek-flash
+        model: deepseek-flash # 模型名称
 logging:
   level:
-    org.springframework.ai.chat.client.advisor: debug
-    com.example.ai: debug
+    org.springframework.ai.chat.client.advisor: debug # AI对话的日志级别
+    com.example.ai: debug # 本项目的日志级别
