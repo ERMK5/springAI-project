@@ -1,6 +1,7 @@
 package com.example.ai.config;
 
 import com.example.ai.constants.SystemConstants;
+import com.example.ai.tools.CourseTools;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
@@ -48,6 +49,20 @@ public class CommonConfiguration {
                         MessageChatMemoryAdvisor.builder(chatMemory)
                                 .build()
                 ) // 添加Advisor,记录日志
+                .build(); // 构建ChatClient实例
+    }
+
+    @Bean
+    public ChatClient serviceChatClient(OpenAiChatModel model, ChatMemory chatMemory, CourseTools courseTools) {
+        return ChatClient
+                .builder(model) // 创建ChatClient工厂实例
+                .defaultSystem(SystemConstants.SERVICE_SYSTEM_PROMPT)
+                .defaultAdvisors(
+                        new SimpleLoggerAdvisor(),
+                        MessageChatMemoryAdvisor.builder(chatMemory)
+                                .build()
+                ) // 添加Advisor,记录日志
+                .defaultTools(courseTools)// 配置工具，SpringAI依然是基于AOP的能力，在请求大模型时会把我们定义的工具信息拼接到提示词中
                 .build(); // 构建ChatClient实例
     }
 
