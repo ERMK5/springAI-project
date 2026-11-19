@@ -1,4 +1,4 @@
-package com.example.ai.query;
+package com.example.ai.entity.query;
 
 import lombok.Data;
 import org.springframework.ai.tool.annotation.ToolParam;

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.example.ai.entity.po.Course;
 import com.example.ai.entity.po.CourseReservation;
 import com.example.ai.entity.po.School;
-import com.example.ai.query.CourseQuery;
+import com.example.ai.entity.query.CourseQuery;
 import com.example.ai.service.ICourseReservationService;
 import com.example.ai.service.ICourseService;
 import com.example.ai.service.ISchoolService;
