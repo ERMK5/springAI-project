@@ -8,22 +8,31 @@ import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.MessageWindowChatMemory;
 import org.springframework.ai.openai.OpenAiChatModel;
+import org.springframework.ai.openai.OpenAiEmbeddingModel;
+import org.springframework.ai.vectorstore.SimpleVectorStore;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.ai.vectorstore.VectorStore;
 
 @Configuration
 public class CommonConfiguration {
 
     /**
      * 添加会话记忆Advisor
+     *
      * @return
      */
     @Bean
-    public ChatMemory chatMemory(){
+    public ChatMemory chatMemory() {
         return MessageWindowChatMemory
                 .builder()
                 .maxMessages(10)
                 .build();
+    }
+
+    @Bean
+    public VectorStore vectorStore(OpenAiEmbeddingModel embeddingModel) {
+        return SimpleVectorStore.builder(embeddingModel).build();
     }
 
     @Bean
@@ -35,7 +44,7 @@ public class CommonConfiguration {
                         new SimpleLoggerAdvisor(),
                         MessageChatMemoryAdvisor.builder(chatMemory)
                                 .build()
-                        ) // 添加Advisor,记录日志
+                ) // 添加Advisor,记录日志
                 .build(); // 构建ChatClient实例
     }
 
